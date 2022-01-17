@@ -1,1 +1,9 @@
 ## Training-Golang-Database
+
+1. Golang secara default mempunyai sebuah package bernama database, package ini berisi kumpulan standard inteface yang menjadi standard untuk berkomunikasi ke database. Ini membuat kode program yang kita buat untuk mengakses jenis database apapun bisa menggunakan kode yang sama, yang berbeda hanya kode SQL yang perlu kita gunakan sesuai dengan database yang kita gunakan
+2. By default Golang mempunyai Database Pooling sendiri, dengan minimal koneksi 10 walaupun tidak ada traffic dan kita juga bisa membatasinya dengan mengatur maksimal koneksi
+3. Eksekusi perintah SQL menggunakan function (DB) `ExecContext(context, sql, params)` ketika mengirim perintah SQL kita butuh mengirimkan context, dengan context kita bisa mengirim sinyal cancel jika kita ingin membatalkan pengiriman perintah SQL nya
+4. Untuk query yang membutuhkan result seperti `SELECT` kita harus menggunakan function (DB) `QueryContext(context, sql, params)`
+5. Hasil query function adalah sebuah struct sql.Rows dimana ini digunakan sebagai iterasi terhadap hasil query kita bisa menggunakan function `(Rows) Next() (boolean)` untuk melakukan iterasi terhadap data hasil query, jika return data false artinya sudah tidak adalagi data pada result tersebut, dan jangan lupa setelah menggunakan Rows untuk menutupnya menggunakan function `(Rows) Close()`
+6. Tipe data TIME, DATETIME, TIMESTAMP akan di parsing menjadi byte[], dan []uint8 dan bisa kita ubah menjadi string untuk di konversi ke time yg di mengerti golang, akan tetapi jika dilakukan secara manual tentu akan sangat merepotkan, maka dari itu golang menyediakan opsi parameter `parseTime=true`
+7. Untuk parsing tipe data NULL, golang 
